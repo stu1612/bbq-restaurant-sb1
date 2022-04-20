@@ -1,9 +1,10 @@
+// npm
 import { Link } from "react-router-dom";
 
 export default function CategoryItem({ item, categoryId }) {
-  const { title, thumbnail, longDescription, alt, type } = item;
+  const { title, thumbnail, longDescription, alt } = item;
   return (
-    <div className={`category-item ${type}`}>
+    <div className="category-item">
       <div>
         <img src={thumbnail} alt={alt} />
       </div>
