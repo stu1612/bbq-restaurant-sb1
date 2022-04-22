@@ -27,7 +27,7 @@ export default function Home() {
   if (status === 0) return <Loading />;
   if (status === 2) return <p>Error ..</p>;
 
-  const EmptyArray = items.length === 0 && <EmptyArrayMessage />;
+  const EmptyArrayMsg = items.length === 0 && <EmptyArrayMessage />;
 
   const dataObj = jsonContent[Object.keys(jsonContent)[0]];
   const dataObj1 = jsonContent[Object.keys(jsonContent)[1]];
@@ -50,7 +50,7 @@ export default function Home() {
       <article className="content">
         <ContentItem>{dataObj2}</ContentItem>
         <PillsContainer items={items} />
-        {EmptyArray}
+        {EmptyArrayMsg}
       </article>
     </section>
   );
