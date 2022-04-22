@@ -5,24 +5,24 @@ import { Link, Outlet } from "react-router-dom";
 import { readCollection } from "../firebase/firestore";
 
 export default function Admin() {
-  const [dishes, setDishes] = useState([]);
-  const [status, setStatus] = useState(0);
+  // const [dishes, setDishes] = useState([]);
+  // const [status, setStatus] = useState(0);
 
   // method
-  useEffect(() => {
-    async function loadData() {
-      const listData = await readCollection("dishes/dishes/content/");
-      setDishes(listData);
-      setStatus(1);
-    }
-    loadData();
-  }, [setDishes]);
+  // useEffect(() => {
+  //   async function loadData() {
+  //     const listData = await readCollection("dishes/dishes/content/");
+  //     setDishes(listData);
+  //     setStatus(1);
+  //   }
+  //   loadData();
+  // }, [setDishes]);
 
-  const categoryItems = dishes.map((item) => (
-    <div key={item.id}>
-      <p>{item.id}</p>
-    </div>
-  ));
+  // const categoryItems = dishes.map((item) => (
+  //   <div key={item.id}>
+  //     <p>{item.title}</p>
+  //   </div>
+  // ));
 
   return (
     <div>
@@ -33,7 +33,7 @@ export default function Admin() {
       <Outlet />
       <div>
         <h3>Categories</h3>
-        {categoryItems}
+        {/* {categoryItems} */}
       </div>
     </div>
   );
