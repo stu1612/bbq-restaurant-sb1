@@ -7,10 +7,12 @@ import jsonContent from "../data/HomeContent.json";
 import Loading from "../components/Loading";
 import ContentItem from "../components/ContentItem";
 import PillsContainer from "../components/PillsContainer";
+import EmptyArrayMessage from "../components/EmptyArrayMessage";
 
 export default function Home() {
-  const [status, setStatus] = useState(0);
+  const [status, setStatus] = useState(1);
   const [items, setItems] = useState([]);
+
   // method
   useEffect(() => {
     async function loadData() {
@@ -24,6 +26,8 @@ export default function Home() {
   // safeguard
   if (status === 0) return <Loading />;
   if (status === 2) return <p>Error ..</p>;
+
+  const EmptyArray = items.length === 0 && <EmptyArrayMessage />;
 
   const dataObj = jsonContent[Object.keys(jsonContent)[0]];
   const dataObj1 = jsonContent[Object.keys(jsonContent)[1]];
@@ -46,6 +50,7 @@ export default function Home() {
       <article className="content">
         <ContentItem>{dataObj2}</ContentItem>
         <PillsContainer items={items} />
+        {EmptyArray}
       </article>
     </section>
   );

@@ -21,6 +21,10 @@ export default function Menu() {
       setDocument(documentData);
       setItems(itemsData);
       setStatus(1);
+
+      if (itemsData.length === 0) {
+        setStatus(1);
+      }
     }
     loadData();
   }, [categoryId]);
@@ -28,6 +32,8 @@ export default function Menu() {
   // safeguard
   if (status === 0) return <Loading />;
   if (status === 2) return <p>Error ..</p>;
+
+  // const EmptyArray = items.length === 0 && <p>Nope</p>;
 
   const Categories = items.map((item) => (
     <CategoryItem item={item} key={item.id} categoryId={categoryId} />

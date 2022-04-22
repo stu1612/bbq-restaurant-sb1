@@ -15,10 +15,10 @@ export default function Category() {
 
   useEffect(() => {
     async function loadData() {
-      const data = await readCollection(
+      const itemsData = await readCollection(
         `dishes/${categoryId}/content/${subId}/content`
       );
-      setItems(data);
+      setItems(itemsData);
       setStatus(1);
     }
     loadData();
@@ -26,6 +26,7 @@ export default function Category() {
 
   // Safeguard
   if (status === 0) return <Loading />;
+  if (status === 2) return <p>Error ..</p>;
 
   // Components
   const ProductItems = items.map((item) => (
