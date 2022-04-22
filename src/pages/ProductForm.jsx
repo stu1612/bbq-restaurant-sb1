@@ -6,7 +6,7 @@ import InputField from "../components/InputField";
 import validateString from "../scripts/validateString";
 import validateNumber from "../scripts/validateNumber";
 // data
-import formInput from "../data/Product_InputForm.json";
+import formInput from "../data/ProductInputData.json";
 
 export default function ProductForm() {
   const [name, setName] = useState("");

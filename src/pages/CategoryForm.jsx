@@ -5,7 +5,7 @@ import InputField from "../components/InputField";
 // files
 import validateString from "../scripts/validateString";
 // data
-import formInput from "../data/Category_InputForm.json";
+import formInput from "../data/CategoryInputData.json";
 
 export default function CategoryForm() {
   const [title, setTitle] = useState("");
