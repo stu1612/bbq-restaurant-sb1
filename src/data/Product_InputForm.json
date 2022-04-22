@@ -1,5 +1,5 @@
 {
-  "title": {
+  "name": {
     "autoFocus": true,
     "label": "Title of product item",
     "placeholder": "Ex: Chicken Wings",
