@@ -1,5 +1,6 @@
 // components
-import InputField from "../components/InputField";
+import InputField from "./InputField";
+import FileInput from "./FileInput";
 // files
 import validateString from "../scripts/validateString";
 import formInput from "../data/CategoryInputData.json";
@@ -25,15 +26,7 @@ export default function CategoryForm({
         state={[description, setDescription]}
         validation={validateString}
       />
-      <label>
-        Image:
-        <input
-          type="file"
-          accept="image/png, image/jpg"
-          onChange={onImageSelect}
-          required
-        />
-      </label>
+      <FileInput onImageSelect={onImageSelect} />
       <button type="submit">Submit</button>
     </form>
   );

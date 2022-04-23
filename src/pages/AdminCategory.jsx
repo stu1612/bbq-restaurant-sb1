@@ -7,7 +7,6 @@ import { createDocument } from "../firebase/firestore";
 // components
 import CategoryForm from "../components/CategoryForm";
 import { createFile } from "../firebase/cloudStorage";
-// import readFile from "../scripts/readFile";
 
 export default function AdminCategory() {
   const { dishes, setDishes } = useContext(AppContext);
@@ -42,6 +41,7 @@ export default function AdminCategory() {
 
   function onImageSelect(event) {
     const file = event.target.files[0];
+    if (file === null) return;
     setFile(file);
   }
 

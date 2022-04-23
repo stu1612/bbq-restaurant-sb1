@@ -1,10 +1,12 @@
 // components
-import InputField from "../components/InputField";
+import InputField from "./InputField";
+import CustomSelectField from "./CustomSelectField";
+import FileInput from "./FileInput";
+
 // files
 import validateString from "../scripts/validateString";
 import validateNumber from "../scripts/validateNumber";
 import formInput from "../data/ProductInputData.json";
-import CustomSelectField from "./CustomSelectField";
 
 export default function ProductForm({
   nameState,
@@ -43,15 +45,8 @@ export default function ProductForm({
         state={[recipe, setRecipe]}
         validation={validateString}
       />
-      <label>
-        Image:
-        <input
-          type="file"
-          accept="image/png, image/jpg"
-          onChange={onImageSelect}
-          required
-        />
-      </label>
+      <FileInput onImageSelect={onImageSelect} />
+
       <button type="submit">Submit</button>
     </form>
   );
