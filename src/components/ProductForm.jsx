@@ -13,15 +13,14 @@ export default function ProductForm({
   describeState,
   priceState,
   recipeState,
-  imgState,
   optionState,
   onCreateProduct,
+  onImageSelect,
 }) {
   const [name, setName] = nameState;
   const [description, setDescription] = describeState;
   const [price, setPrice] = priceState;
   const [recipe, setRecipe] = recipeState;
-  const [imgURL, setImgURL] = imgState;
   const [optionValue, setOptionValue] = optionState;
   // local state
   const [list, setList] = useState([]);
@@ -71,10 +70,9 @@ export default function ProductForm({
       <label>
         Image:
         <input
-          type="text"
+          type="file"
           accept="image/png, image/jpg"
-          value={imgURL}
-          onChange={(event) => setImgURL(event.target.value)}
+          onChange={onImageSelect}
         />
       </label>
       <button type="submit">Submit</button>

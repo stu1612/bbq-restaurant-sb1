@@ -1,7 +1,9 @@
 // npm
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 // firebase
 import { createDocument } from "../firebase/firestore";
+import { createFile } from "../firebase/cloudStorage";
 // components
 import ProductForm from "../components/ProductForm";
 
@@ -10,10 +12,9 @@ export default function AdminProduct() {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
   const [recipe, setRecipe] = useState([]);
-  const [imgURL, setImgURL] = useState("");
   const [dishes, setDishes] = useState([]);
   const [optionValue, setOptionValue] = useState("");
-
+  const [file, setFile] = useState(null);
   const filePath = `dishes/dishes/content/${optionValue}/content`;
 
   async function onCreateProduct(event) {
@@ -23,12 +24,29 @@ export default function AdminProduct() {
       description: description,
       price: price,
       recipe: recipe,
-      imgURL: imgURL,
+      imgURL: "",
     };
+
+    // upload to cloudStorage
+    const path = "dishes/products";
+    const pathName = `dish-${name}.png`;
+    const id = uuidv4();
+    const fileName = path + pathName + id;
+    const imageURL = await createFile(fileName, file);
+
+    // add url into object
+    payload.imgURL = imageURL;
+
     const documentId = await createDocument(filePath, payload);
     payload.id = documentId;
     setDishes([...dishes, payload]);
     resetForm();
+  }
+
+  function onImageSelect(event) {
+    const file = event.target.files[0];
+    // store file in state as a reference
+    setFile(file);
   }
 
   function resetForm() {
@@ -36,7 +54,7 @@ export default function AdminProduct() {
     setDescription("");
     setPrice(0);
     setRecipe("");
-    setImgURL("");
+    setFile(null);
   }
 
   return (
@@ -45,9 +63,9 @@ export default function AdminProduct() {
       describeState={[description, setDescription]}
       priceState={[price, setPrice]}
       recipeState={[recipe, setRecipe]}
-      imgState={[imgURL, setImgURL]}
       optionState={[optionValue, setOptionValue]}
       onCreateProduct={onCreateProduct}
+      onImageSelect={onImageSelect}
     />
   );
 }
