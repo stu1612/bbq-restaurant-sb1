@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
-import DishContextProvider from "./context/DishContext";
+import AppContextProvider from "./context/AppContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <DishContextProvider>
+    <AppContextProvider>
       <App />
-    </DishContextProvider>
+    </AppContextProvider>
   </React.StrictMode>
 );

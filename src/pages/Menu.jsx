@@ -5,23 +5,21 @@ import { useParams } from "react-router-dom";
 import { readDocument, readCollection } from "../firebase/firestore";
 import CategoryItem from "../components/CategoryItem";
 import Loading from "../components/Loading";
-import { DishContext } from "../context/DishContext";
+import { AppContext } from "../context/AppContext";
 
 export default function Menu() {
   const { categoryId } = useParams();
   const [document, setDocument] = useState({});
-  // const [items, setItems] = useState([]);
   const [status, setStatus] = useState(0);
-  const { dishesList, setDishesList } = useContext(DishContext);
+  const { dishes, setDishes } = useContext(AppContext);
 
   // method
   useEffect(() => {
     async function loadData() {
       const documentData = await readDocument("dishes", categoryId);
       const itemsData = await readCollection(`dishes/${categoryId}/content/`);
-
       setDocument(documentData);
-      setDishesList(itemsData);
+      setDishes(itemsData);
       setStatus(1);
 
       if (itemsData.length === 0) {
@@ -29,7 +27,7 @@ export default function Menu() {
       }
     }
     loadData();
-  }, [categoryId, setDishesList]);
+  }, [categoryId, setDishes]);
 
   // safeguard
   if (status === 0) return <Loading />;
@@ -37,14 +35,14 @@ export default function Menu() {
 
   // const EmptyArray = items.length === 0 && <p>Nope</p>;
 
-  const Categories = dishesList.map((item) => (
+  const CategoryItems = dishes.map((item) => (
     <CategoryItem item={item} key={item.id} categoryId={categoryId} />
   ));
 
   return (
     <section className="menu" id="menu">
       <h2>{document.title}</h2>
-      <div>{Categories}</div>
+      <div>{CategoryItems}</div>
     </section>
   );
 }

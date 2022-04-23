@@ -1,97 +1,41 @@
 // npm
-import { useState, useEffect } from "react";
-// components
-import InputField from "../components/InputField";
+import { useState, useContext } from "react";
+import CategoryForm from "../components/CategoryForm";
+import { AppContext } from "../context/AppContext";
 // files
-import validateString from "../scripts/validateString";
-import { addDocument, createDocument } from "../firebase/firestore";
-import { readCollection } from "../firebase/firestore";
-// data
-import formInput from "../data/CategoryInputData.json";
-
-// context
-// import { DishContext } from "../context/DishContext";
+import { createDocument } from "../firebase/firestore";
 
 export default function AdminCategory() {
-  // const { dishesList, setDishesList } = useContext(DishContext);
-  const [dishes, setDishes] = useState([]);
-  const [status, setStatus] = useState(0);
+  const { dishes, setDishes } = useContext(AppContext);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [imgURL, setImgURL] = useState(
-    "https://images.unsplash.com/photo-1648737965402-2b9c3f3eaa6f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=700&q=60"
-  );
+  const [imgURL, setImgURL] = useState("");
 
-  // async function addItem(event) {
-  //   event.preventDefault();
-  //   const payload = {
-  //     documentId: title,
-  //     title: title,
-  //     description: description,
-  //     imgURL: imgURL,
-  //   };
-  //   const path = "dishes/dishes/content";
-  //   const document = await createDocument(payload, path, title);
-  //   console.log("document", document);
-  //   payload.title = document;
-  //   setDishes([...dishes, payload]);
-  // }
-
-  // method
-  useEffect(() => {
-    async function loadData() {
-      const listData = await readCollection("dishes/dishes/content/");
-      setDishes(listData);
-      setStatus(1);
-    }
-    loadData();
-  }, [setDishes]);
-
-  async function addItem(event) {
+  async function onCreate(event) {
     event.preventDefault();
     const payload = {
       title: title,
       description: description,
       imgURL: imgURL,
     };
-    // const path = "dishes/dishes/content";
-    const documentId = await addDocument("dishes/dishes/content", payload);
+    const filePath = "dishes/dishes/content";
+    const documentId = await createDocument(filePath, payload);
     payload.id = documentId;
     setDishes([...dishes, payload]);
+    resetForm();
   }
 
-  const categoryItems = dishes.map((item) => (
-    <div key={item.id}>
-      <p>{item.title}</p>
-    </div>
-  ));
-
+  function resetForm() {
+    setTitle("");
+    setDescription("");
+    setImgURL("");
+  }
   return (
-    <div>
-      {categoryItems}
-      <form onSubmit={addItem}>
-        <InputField
-          setup={formInput.title}
-          state={[title, setTitle]}
-          validation={validateString}
-        />
-        <InputField
-          setup={formInput.description}
-          state={[description, setDescription]}
-          validation={validateString}
-        />
-
-        <label>
-          Image:
-          <input
-            type="text"
-            accept="image/png, image/jpg"
-            value={imgURL}
-            onChange={(event) => setImgURL(event.target.value)}
-          />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <CategoryForm
+      titleState={[title, setTitle]}
+      describeState={[description, setDescription]}
+      imgState={[imgURL, setImgURL]}
+      onCreate={onCreate}
+    />
   );
 }

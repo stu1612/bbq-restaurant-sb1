@@ -1,8 +1,8 @@
 // npm
 import { Link } from "react-router-dom";
 
-export default function PillsContainer({ items }) {
-  const Pills = items.map((item) => (
+export default function PillsContainer({ dishes }) {
+  const Pills = dishes.map((item) => (
     <Link
       to={`/menu/dishes/${item.id}`}
       key={item.id}
