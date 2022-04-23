@@ -7,12 +7,12 @@ import formInput from "../data/CategoryInputData.json";
 export default function CategoryForm({
   titleState,
   describeState,
-  imgState,
   onCreateCategory,
+  onImageSelect,
 }) {
   const [title, setTitle] = titleState;
   const [description, setDescription] = describeState;
-  const [imgURL, setImgURL] = imgState;
+
   return (
     <form onSubmit={onCreateCategory}>
       <InputField
@@ -28,10 +28,10 @@ export default function CategoryForm({
       <label>
         Image:
         <input
-          type="text"
+          type="file"
           accept="image/png, image/jpg"
-          value={imgURL}
-          onChange={(event) => setImgURL(event.target.value)}
+          onChange={onImageSelect}
+          required
         />
       </label>
       <button type="submit">Submit</button>

@@ -2,11 +2,15 @@
 import { Link } from "react-router-dom";
 
 export default function CategoryItem({ item, categoryId }) {
-  const { title, thumbnail, longDescription, alt } = item;
+  const { title, imgURL, longDescription, alt } = item;
   return (
     <div className="category-item">
       <div>
-        <img src={thumbnail} alt={alt} />
+        <img
+          src={imgURL}
+          alt={alt}
+          style={{ width: "200px", height: "200px", objectFit: "cover" }}
+        />
       </div>
       <h2>{title}</h2>
       <p>{longDescription}</p>
