@@ -15,11 +15,10 @@
   },
   "price": {
     "autoFocus": false,
-    "label": "Description of the product item",
-    "placeholder": "Ex: Comprehensive explanation of your item",
+    "label": "Price of item",
     "required": true,
     "type": "number",
-    "min": 0,
+    "min": 1,
     "max": 9999
   },
   "recipe": {
