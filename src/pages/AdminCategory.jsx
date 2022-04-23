@@ -1,12 +1,13 @@
 // npm
 import { useState, useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import { v4 as uuidv4 } from "uuid";
 // files
 import { createDocument } from "../firebase/firestore";
 // components
 import CategoryForm from "../components/CategoryForm";
 import { createFile } from "../firebase/cloudStorage";
-import readFile from "../scripts/readFile";
+// import readFile from "../scripts/readFile";
 
 export default function AdminCategory() {
   const { dishes, setDishes } = useContext(AppContext);
@@ -23,7 +24,10 @@ export default function AdminCategory() {
     };
 
     // upload to cloudStorage
-    const fileName = `dishes-dish-${title}.png`;
+    const path = "dishes/";
+    const pathName = `dishes-dish-${title}.png`;
+    const id = uuidv4();
+    const fileName = path + pathName + id;
     const imageURL = await createFile(fileName, file);
 
     // add url into object
