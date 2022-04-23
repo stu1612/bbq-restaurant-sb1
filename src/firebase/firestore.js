@@ -1,5 +1,12 @@
 // files
-import { getDoc, doc, getDocs, addDoc } from "firebase/firestore";
+import {
+  getDoc,
+  doc,
+  getDocs,
+  addDoc,
+  deletDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { collection } from "firebase/firestore";
 import { firestore } from "./firebase";
 
@@ -24,4 +31,9 @@ export async function createDocument(path, data) {
   const document = await addDoc(documentPath, data);
 
   return document.id;
+}
+
+export async function deleteDocument(path, id) {
+  const documentPath = doc(firestore, path, id);
+  await deleteDoc(documentPath);
 }

@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 // files
-import { readCollection } from "../firebase/firestore";
+import { deleteDocument, readCollection } from "../firebase/firestore";
 import loadItems from "../scripts/loadItems";
 // components
 import Loading from "../components/Loading";
@@ -26,6 +26,13 @@ export default function Admin() {
     return data;
   }
 
+  async function onDelete(id) {
+    await deleteDocument(path, id);
+    const clonedDishes = [...dishes];
+    const deleteItem = clonedDishes.filter((item) => item.id !== id);
+    setDishes(deleteItem);
+  }
+
   // safeguard
   if (status === 0) return <Loading />;
   if (status === 2) return <p>Error ..</p>;
@@ -33,6 +40,7 @@ export default function Admin() {
   const CategoryItems = dishes.map((item) => (
     <div key={item.id}>
       <h3>{item.title}</h3>
+      <button onClick={() => onDelete(item.id)}>Delete</button>
       <button
         onClick={() =>
           loadProducts(
