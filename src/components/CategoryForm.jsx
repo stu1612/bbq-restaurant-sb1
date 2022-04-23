@@ -8,13 +8,13 @@ export default function CategoryForm({
   titleState,
   describeState,
   imgState,
-  onCreate,
+  onCreateCategory,
 }) {
   const [title, setTitle] = titleState;
   const [description, setDescription] = describeState;
   const [imgURL, setImgURL] = imgState;
   return (
-    <form onSubmit={onCreate}>
+    <form onSubmit={onCreateCategory}>
       <InputField
         setup={formInput.title}
         state={[title, setTitle]}

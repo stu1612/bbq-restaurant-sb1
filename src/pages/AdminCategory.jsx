@@ -11,7 +11,7 @@ export default function AdminCategory() {
   const [description, setDescription] = useState("");
   const [imgURL, setImgURL] = useState("");
 
-  async function onCreate(event) {
+  async function onCreateCategory(event) {
     event.preventDefault();
     const payload = {
       title: title,
@@ -35,7 +35,7 @@ export default function AdminCategory() {
       titleState={[title, setTitle]}
       describeState={[description, setDescription]}
       imgState={[imgURL, setImgURL]}
-      onCreate={onCreate}
+      onCreate={onCreateCategory}
     />
   );
 }
