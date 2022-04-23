@@ -15,7 +15,6 @@ export default function AdminProduct() {
   const [dishes, setDishes] = useState([]);
   const [optionValue, setOptionValue] = useState("");
   const [file, setFile] = useState(null);
-  const filePath = `dishes/dishes/content/${optionValue}/content`;
 
   async function onCreateProduct(event) {
     event.preventDefault();
@@ -37,6 +36,7 @@ export default function AdminProduct() {
     // add url into object
     payload.imgURL = imageURL;
 
+    const filePath = `dishes/dishes/content/${optionValue}/content`;
     const documentId = await createDocument(filePath, payload);
     payload.id = documentId;
     setDishes([...dishes, payload]);
@@ -45,7 +45,6 @@ export default function AdminProduct() {
 
   function onImageSelect(event) {
     const file = event.target.files[0];
-    // store file in state as a reference
     setFile(file);
   }
 

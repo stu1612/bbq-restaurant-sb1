@@ -42,7 +42,6 @@ export default function AdminCategory() {
 
   function onImageSelect(event) {
     const file = event.target.files[0];
-    // store file in state as a reference
     setFile(file);
   }
 

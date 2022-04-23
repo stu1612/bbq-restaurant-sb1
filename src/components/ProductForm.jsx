@@ -1,12 +1,10 @@
-// npm
-import { useState, useEffect } from "react";
 // components
 import InputField from "../components/InputField";
 // files
 import validateString from "../scripts/validateString";
 import validateNumber from "../scripts/validateNumber";
 import formInput from "../data/ProductInputData.json";
-import { readCollection } from "../firebase/firestore";
+import CustomSelectField from "./CustomSelectField";
 
 export default function ProductForm({
   nameState,
@@ -21,32 +19,10 @@ export default function ProductForm({
   const [description, setDescription] = describeState;
   const [price, setPrice] = priceState;
   const [recipe, setRecipe] = recipeState;
-  const [optionValue, setOptionValue] = optionState;
-  // local state
-  const [list, setList] = useState([]);
-
-  useEffect(() => {
-    async function loadCategoryItems(path) {
-      const listData = await readCollection(path);
-      setList(listData);
-    }
-    loadCategoryItems(`dishes/dishes/content/`);
-  }, [optionValue]);
-
-  const OptionItem = list.map((item) => (
-    <option value={item.title} key={item.id}>
-      {item.title}
-    </option>
-  ));
 
   return (
     <form onSubmit={onCreateProduct}>
-      <select
-        value={optionValue}
-        onChange={(event) => setOptionValue(event.target.value)}
-      >
-        {OptionItem}
-      </select>
+      <CustomSelectField optionState={optionState} />
       <InputField
         setup={formInput.name}
         state={[name, setName]}
@@ -73,6 +49,7 @@ export default function ProductForm({
           type="file"
           accept="image/png, image/jpg"
           onChange={onImageSelect}
+          required
         />
       </label>
       <button type="submit">Submit</button>
