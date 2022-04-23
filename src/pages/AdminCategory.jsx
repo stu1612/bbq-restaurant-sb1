@@ -1,9 +1,10 @@
 // npm
 import { useState, useContext } from "react";
-import CategoryForm from "../components/CategoryForm";
 import { AppContext } from "../context/AppContext";
 // files
 import { createDocument } from "../firebase/firestore";
+// components
+import CategoryForm from "../components/CategoryForm";
 
 export default function AdminCategory() {
   const { dishes, setDishes } = useContext(AppContext);
@@ -30,12 +31,15 @@ export default function AdminCategory() {
     setDescription("");
     setImgURL("");
   }
+
   return (
-    <CategoryForm
-      titleState={[title, setTitle]}
-      describeState={[description, setDescription]}
-      imgState={[imgURL, setImgURL]}
-      onCreate={onCreateCategory}
-    />
+    <div>
+      <CategoryForm
+        titleState={[title, setTitle]}
+        describeState={[description, setDescription]}
+        imgState={[imgURL, setImgURL]}
+        onCreateCategory={onCreateCategory}
+      />
+    </div>
   );
 }

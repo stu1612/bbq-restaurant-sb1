@@ -9,7 +9,7 @@
   "description": {
     "autoFocus": false,
     "label": "Description of the product item",
-    "placeholder": "Ex: Comprehensive explanation of your item",
+    "placeholder": "Ex: description of your item",
     "required": true,
     "type": "text"
   },

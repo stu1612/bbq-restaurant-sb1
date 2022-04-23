@@ -8,13 +8,13 @@ import ProductForm from "../components/ProductForm";
 export default function AdminProduct() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("0");
+  const [price, setPrice] = useState(0);
   const [recipe, setRecipe] = useState([]);
-  const [imgURL, setImgURL] = useState(
-    "https://images.unsplash.com/photo-1648737965402-2b9c3f3eaa6f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=700&q=60"
-  );
+  const [imgURL, setImgURL] = useState("");
   const [dishes, setDishes] = useState([]);
   const [optionValue, setOptionValue] = useState("");
+
+  const filePath = `dishes/dishes/content/${optionValue}/content`;
 
   async function onCreateProduct(event) {
     event.preventDefault();
@@ -25,7 +25,6 @@ export default function AdminProduct() {
       recipe: recipe,
       imgURL: imgURL,
     };
-    const filePath = `dishes/dishes/content/${optionValue}/content`;
     const documentId = await createDocument(filePath, payload);
     payload.id = documentId;
     setDishes([...dishes, payload]);
@@ -35,7 +34,7 @@ export default function AdminProduct() {
   function resetForm() {
     setName("");
     setDescription("");
-    setPrice("");
+    setPrice(0);
     setRecipe("");
     setImgURL("");
   }
